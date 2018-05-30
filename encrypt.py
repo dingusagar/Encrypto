@@ -66,25 +66,27 @@ class Encrypto:
 
 
 def Main():
-	compression_ratio = 1
-	encrypto = Encrypto()
-	choice = input('Press E for Encrpytion & D for Decryption  : ')
-	if choice == 'E':
-	    filename = input("Filename ? ")
-	    password = input("Password ? ")
+    compression_ratio = 1
+    encrypto = Encrypto()
+    choice = input('Press E for Encrpytion & D for Decryption  : ')
+    if choice == 'E':
+        filename = input("Filename ? ")
+        password = input("Password ? ")
 
-	    
-	    encrypto.encrypt(password,filename+".zip")
-
-	    print("Encrypting..")
-	elif choice == 'D':
-	    filename = input("Filename ? ")
-	    password = input("Password ? ")
-	    decryptedFileName = encrypto.decrypt(password,filename)
-
-	    print("Decrypting..")
-	else:
-	    print("Invalid Choice ..closing")
+        
+        os.system('zip -{} -r {}.zip {}'.format(compression_ratio,filename,filename))
+        encrypto.encrypt(password,filename+".zip")
+        os.system('rm {}.zip'.format(filename))
+        print("Encrypting..")
+    elif choice == 'D':
+        filename = input("Filename ? ")
+        password = input("Password ? ")
+        decryptedFileName = encrypto.decrypt(password,filename)
+        os.system('unzip  {}'.format(decryptedFileName))
+        os.system('rm {}'.format(decryptedFileName))
+        print("Decrypting..")
+    else:
+        print("Invalid Choice ..closing")
 
 if __name__ == '__main__':
     Main()
